@@ -3,37 +3,51 @@
  */
 package com.geminoo.CookbookManger.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author chen
  *
  */
-public class Order {
-	private Date OrderTime;
-	private List<CartItems> cartItems;
-	private String address;
-	
-	public long getOrderTime() {
-		return new Date().getTime();
+public class Order implements Serializable{
+	private String orderNum;
+	private String OrderTime;
+	private Set<CartItems> orderItems;
+	private double allPrice;
+
+	public String getOrderNum() {
+		return orderNum;
 	}
-	public void setOrderTime(Date orderTime) {
+
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
+	}
+
+	public String getOrderTime() {
+		return OrderTime;
+	}
+
+	public void setOrderTime(String orderTime) {
 		OrderTime = orderTime;
 	}
-	public List<CartItems> getCartItems() {
-		return cartItems;
+
+	public Set<CartItems> getOrderItems() {
+		return orderItems;
 	}
-	public void setCartItems(List<CartItems> cartItems) {
-		this.cartItems = cartItems;
+
+	public void setOrderItems(Set<CartItems> orderItems) {
+		this.orderItems = orderItems;
 	}
-	public String getAddress() {
-		return address;
+
+	public double getAllPrice() {
+		return allPrice;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+
+	public void setAllPrice(double allPrice) {
+		this.allPrice = allPrice;
 	}
-	
-	
 
 }

@@ -24,7 +24,7 @@ import com.geminoo.CookbookManger.util.GenerateCode;
  */
 public class FileOperateService implements ICookbook {
 	List<Cookbook> list;// 菜品集合
-	File file = new File("info.txt");// 菜品信息存储文件
+	File cookBook = new File("info.txt");// 菜品信息存储文件
 	Cookbook cb;
 	ObjectInputStream ois;
 	ObjectOutputStream oos;
@@ -32,20 +32,20 @@ public class FileOperateService implements ICookbook {
 	public FileOperateService() {
 		cb = new Cookbook();
 		list = new ArrayList<Cookbook>();
-		if (!file.exists()) {
+		if (!cookBook.exists()) {
 			try {
-				file.createNewFile();
+				cookBook.createNewFile();
 				list.add(new Cookbook(1, "鱼香肉丝", 22.0));
 				list.add(new Cookbook(2, "红油手抄", 23.0));
 				list.add(new Cookbook(3, "鱼香肉丝", 24.0));
-				write();
+				write(cookBook);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		
 		}
-		list = read();
+		list = read(cookBook);
 	}
 
 	/*
@@ -56,7 +56,7 @@ public class FileOperateService implements ICookbook {
 	@Override
 	public void insert(Cookbook cookbook) {
 		list.add(cookbook);
-		write();
+		write(cookBook);
 	}
 
 	/*
@@ -68,7 +68,7 @@ public class FileOperateService implements ICookbook {
 	public void delete(Cookbook cookbook) {
 		// TODO Auto-generated method stub
 		list.remove(cookbook);
-		write();
+		write(cookBook);
 		System.out.println("删除成功！");
 	}
 
@@ -82,7 +82,7 @@ public class FileOperateService implements ICookbook {
 		list.get(newCb.getId()-1).setId(newCb.getId());
 		list.get(newCb.getId()-1).setName(newCb.getName());
 		list.get(newCb.getId()-1).setPrice(newCb.getPrice());
-		write();
+		write(cookBook);
 		System.out.println("修改成功！");
 	}
 
@@ -104,12 +104,12 @@ public class FileOperateService implements ICookbook {
 	}
 
 	public Cookbook searchByType(int sid) {
-		read();
+		read(cookBook);
 		return search(sid);
 	}
 
 	public Cookbook searchByType(String name) {
-		read();
+		read(cookBook);
 		for (Cookbook c : list) {
 			if (c.getName().equals(name)) {
 				this.cb = c;
@@ -121,7 +121,7 @@ public class FileOperateService implements ICookbook {
 	}
 
 	public Cookbook searchByType(double price) {
-		read();
+		read(cookBook);
 		for (Cookbook c : list) {
 			if (c.getPrice() == price) {
 				this.cb = c;
@@ -143,7 +143,7 @@ public class FileOperateService implements ICookbook {
 		return list;
 	}
 
-	public List<Cookbook> read() {
+	public List<Cookbook> read(File file) {
 		list = new ArrayList<Cookbook>();
 		try {
 			ois = new ObjectInputStream(new FileInputStream(file));
@@ -178,7 +178,7 @@ public class FileOperateService implements ICookbook {
 		return list;
 	}
 
-	public void write() {
+	public void write(File file) {
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(file));
 			for (Cookbook b : list) {

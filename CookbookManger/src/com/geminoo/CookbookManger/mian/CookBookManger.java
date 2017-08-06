@@ -33,18 +33,23 @@ public class CookBookManger {
 				break;
 			case "4":
 				m.SubMenu();
-				cs.searchByType(m.getOperator());
 				break;
 			case "5":
 				cs.showAllCookboos();
 				break;
 			case "6":
+				cs.addCart();
 				break;
 			case "7":
+				cs.showCart();
 				break;
 			case "8":
+				cs.createOrder();
 				break;
 			case "9":
+				cs.showOrder();
+				break;
+			case "10":
 				cs.systemExit();
 				break;
 			default:
